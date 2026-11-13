@@ -1,0 +1,28 @@
+// =====================================================
+// Leo Portfolio - Prisma schema (MySQL / XAMPP)
+// =====================================================
+// After editing this file run (from the back end folder):
+//   npx prisma generate     -> rebuild the client code
+//   npx prisma db push      -> sync the database table
+// =====================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// The connection URL comes from prisma.config.ts -> .env -> DATABASE_URL
+datasource db {
+  provider = "mysql"
+}
+
+// Stores every "Contact Me" message sent from the website.
+// Maps to the "messages" table (same as database/schema.sql).
+model Message {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  email     String   @db.VarChar(255)
+  body      String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("messages")
+}
